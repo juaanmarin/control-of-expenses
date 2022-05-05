@@ -1,0 +1,16 @@
+footer{
+    display: flex;
+    justify-content: space-around;
+
+}
+footer img{
+    width: 60px;
+}
+.icons{
+    display: flex;
+    gap: 17px;
+}
+.contact{
+    display: flex;
+    gap: 10px;
+}
