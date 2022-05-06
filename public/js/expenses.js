@@ -48,10 +48,14 @@ class Expenses {
         const total = this.expenses.getAll().reduce((acc, item) => {
             return acc += this.convertCurrency(item, this.finalCurrency);
         }, 0);
-        return `${this.finalCurrency} ${total.toFixed(2).toString}`;
+        return `${this.finalCurrency} ${total.toFixed(2).toString()}`;
     }
     remove(id) {
-        throw new Error("Method not implemented.");
+        const items = this.getItems().filter(item => {
+            return item.id != id;
+        });
+        this.expenses.createFerom(items);
+        return true;
     }
     convertCurrency(item, currency) {
         switch (item.cost.currency) {

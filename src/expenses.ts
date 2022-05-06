@@ -8,7 +8,7 @@ interface Price{
 
 //ExpensesItems espera tres datos dos de tipo primitibo y uno personalisado
 interface ExpenseItems{
-    id:number,
+    id?:number,
     title:string,
     cost:Price
 }
@@ -79,14 +79,17 @@ class Expenses implements iExpenses{
         return this.expenses.getAll();
     }
     getTotal(): string {
-        const total=this.expenses.getAll().reduce((acc,item)=>{
+        const total=this.expenses.getAll().reduce((acc,item)=>{          
             return acc+= this.convertCurrency(item, this.finalCurrency);
-        },0); 
-        
-        return `${this.finalCurrency} ${total.toFixed(2).toString}`;
+        },0);  
+        return `${this.finalCurrency} ${total.toFixed(2).toString()}`;
     } 
     remove(id: number): boolean {
-        throw new Error("Method not implemented.");
+        const items=this.getItems().filter(item=>{
+            return item.id!=id;
+        })
+        this.expenses.createFerom(items)
+        return true;
     }
     private convertCurrency(item:ExpenseItems, currency:Currency){
         switch(item.cost.currency){
@@ -94,20 +97,20 @@ class Expenses implements iExpenses{
                 switch(currency){
                     case "MXN":
                         return item.cost.number*22;
-                    break;
+                        break;
                     default:
                         return item.cost.number;
                 }
-            break;
+                break;
             case "MXN":
-                switch(currency){
+                switch(currency){             
                     case "USD":
                         return item.cost.number/22;
-                    break;
+                        break;
                     default:
                         return item.cost.number;
                 }
-            break;
+                break;
 
             default:
                 return 0;

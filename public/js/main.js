@@ -7,15 +7,14 @@ const inputCurrency = document.querySelector("#currency");
 const expenses = new Expenses("USD");
 //el signo d einterrogacion indica que el dato no ba a ser null si no estamos seguros lo cambiamos por ?
 bAdd.addEventListener("click", e => {
-    console.log("**********************************************");
     if (inputitle.value != "" && inputCost.value != "" && !isNaN(parseFloat(inputCost.value))) {
         const title = inputitle.value;
         const cost = parseFloat(inputCost.value);
         const currency = inputCurrency.value;
-        // expenses.add({
-        //     title:title, 
-        //     cost:{number:cost,currency:currency}
-        // });
+        expenses.add({
+            title: title,
+            cost: { number: cost, currency: currency }
+        });
         render();
     }
     else {
